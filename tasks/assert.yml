@@ -20,3 +20,10 @@
     that:
       - zoom_check_rpm_key is defined
       - zoom_check_rpm_key is boolean
+
+- name: Ensure that zoom_pacman_pkg_download_dir is set correctly
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - zoom_pacman_pkg_download_dir is defined
+      - zoom_pacman_pkg_download_dir is string

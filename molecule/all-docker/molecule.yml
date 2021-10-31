@@ -16,6 +16,18 @@ driver:
   name: docker
 
 platforms:
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-archlinux-any"
+    image: "quay.io/gotmax23/archlinux-systemd:any"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
   - name: "zoom-${MOLECULE_SCENARIO_NAME}-debian-buster"
     image: "quay.io/gotmax23/debian-systemd:buster"
     command: ""

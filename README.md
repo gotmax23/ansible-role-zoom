@@ -61,6 +61,10 @@ zoom_state: present
 # Whether to check Zoom's rpm key fingerprint
 zoom_check_rpm_key: true
 
+# This variable dictates where this role will download the Zoom pacman pkg archive.
+# This only applies on Archlinux machines.
+zoom_pacman_pkg_download_dir: /opt
+
 ```
 
 ## Example Playbook
@@ -92,6 +96,7 @@ This role is compatible with the following distros:
 
 |distro|versions|
 |------|--------|
+|Archlinux|any|
 |Debian|buster, bullseye, bookworm|
 |EL|7, 8|
 |Fedora|34, 35, 36|

@@ -13,9 +13,9 @@ galaxy_info:
   min_ansible_version: 2.11
 
   platforms:
-    # - name: Archlinux
-    #   versions:
-    #     - any
+    - name: Archlinux
+      versions:
+        - any
     - name: Debian
       versions:
         - buster

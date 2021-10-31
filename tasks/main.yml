@@ -41,6 +41,22 @@
       ansible.builtin.package:
         name: "{{ zoom_rpm_url }}"
 
+- name: Install Zoom (pacman)
+  when:
+    - ansible_pkg_mgr == "pacman"
+    - zoom_state == "present"
+
+  block:
+    - name: Download Zoom Pacman pkg
+      ansible.builtin.get_url:
+        url: "{{ zoom_pacman_pkg_url }}"
+        dest: "{{ zoom_pacman_pkg_download_dest }}"
+        mode: "0644"
+
+    - name: Install Zoom Pacman pkg
+      community.general.pacman:
+        name: "{{ zoom_pacman_pkg_download_dest }}"
+
 # I had to seperate this task, because it is impossible to remove a package by a url;
 # the actual package name is required.
 - name: Uninstall Zoom

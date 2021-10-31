@@ -62,6 +62,8 @@ jobs:
       fail-fast: false
       matrix:
         os:
+          - image: "archlinux"
+            tag: "any"
           - image: "debian"
             tag: "buster"
           - image: "debian"

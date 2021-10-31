@@ -16,3 +16,7 @@ _zoom_rpm_url:
   RedHat: https://zoom.us/client/latest/zoom_x86_64.rpm
   Suse: https://zoom.us/client/latest/zoom_openSUSE_x86_64.rpm
 zoom_rpm_url: "{{ _zoom_rpm_url[ansible_os_family] | default(_zoom_rpm_url['default']) }}"
+
+zoom_pacman_pkg_url: https://zoom.us/client/latest/zoom_x86_64.pkg.tar.xz
+
+zoom_pacman_pkg_download_dest: "{{ zoom_pacman_pkg_download_dir }}/zoom_x86_64.pkg.tar.xz"
