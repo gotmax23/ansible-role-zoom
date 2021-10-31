@@ -1,0 +1,22 @@
+# SPDX-FileCopyrightText: 2021 Maxwell G (@gotmax23)
+# SPDX-License-Identifier: MIT
+---
+- name: Ensure that zoom_state is set correctly
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - zoom_state is defined
+      - zoom_state is string
+      - zoom_state in [ "present", "absent" ]
+
+- name: Ensure that the system architecture is supported
+  ansible.builtin.assert:
+    quiet: true
+    that: ansible_architecture == "x86_64"
+
+- name: Ensure that zoom_check_rpm_key is set correctly
+  ansible.builtin.assert:
+    quiet: true
+    that:
+      - zoom_check_rpm_key is defined
+      - zoom_check_rpm_key is boolean

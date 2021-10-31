@@ -1,0 +1,14 @@
+# SPDX-FileCopyrightText: 2021 Maxwell G (@gotmax23)
+# SPDX-License-Identifier: MIT
+---
+- name: Converge
+  hosts: all
+  become: true
+
+  vars:
+    zoom_state: "{{ lookup('env', 'zoom_state') | default('present', True) }}"
+
+  tasks:
+    - name: "Include gotmax23.zoom"
+      ansible.builtin.include_role:
+        name: "gotmax23.zoom"

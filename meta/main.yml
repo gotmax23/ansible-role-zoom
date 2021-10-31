@@ -1,0 +1,43 @@
+# SPDX-FileCopyrightText: 2021 Maxwell G (@gotmax23)
+# SPDX-License-Identifier: MIT
+---
+galaxy_info:
+  role_name: zoom
+
+  author: gotmax23
+
+  description: Ansible role that installs the Zoom client on Linux.
+
+  license: MIT
+
+  min_ansible_version: 2.11
+
+  platforms:
+    # - name: Archlinux
+    #   versions:
+    #     - any
+    - name: Debian
+      versions:
+        - buster
+        - bullseye
+        - bookworm
+    - name: EL
+      versions:
+        - 7
+        - 8
+    - name: Fedora
+      versions:
+        - 34
+        - 35
+        - 36
+    - name: opensuse
+      versions:
+        - all
+    - name: Ubuntu
+      versions:
+        - bionic
+        - focal
+
+  galaxy_tags: []
+
+dependencies: []

@@ -1,0 +1,22 @@
+---
+#
+# Ansible managed
+#
+extends: default
+
+rules:
+  braces:
+    max-spaces-inside: 1
+    level: error
+  brackets:
+    max-spaces-inside: 1
+    level: error
+  line-length: disable
+
+ignore: |
+  .cache/
+  # This files use the Jinja 2 `to_nice_yaml` filter which does not create
+  # yamllint compatible files.
+  .github/workflows/molecule.yml
+
+# vim: set filetype=yaml:

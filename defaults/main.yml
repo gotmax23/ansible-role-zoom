@@ -1,0 +1,10 @@
+# SPDX-FileCopyrightText: 2021 Maxwell G (@gotmax23)
+# SPDX-License-Identifier: CC0-1.0
+---
+# Options:
+# - `present` ensures that Zoom is installed
+# - `absent` ensures that Zoom is not installed.
+zoom_state: present
+
+# Whether to check Zoom's rpm key fingerprint
+zoom_check_rpm_key: true

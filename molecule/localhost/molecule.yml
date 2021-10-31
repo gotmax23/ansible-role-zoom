@@ -1,0 +1,32 @@
+---
+#
+# Ansible managed
+#
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+    requirements-file: requirements.yml
+    force: ${GALAXY_FORCE:-false}
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+driver:
+  name: delegated
+  options:
+    ansible_connection_options:
+      ansible_connection: local
+    managed: false
+
+platforms:
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-${TOX_ENVNAME}"
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      stdout_callback: yaml
+  playbooks:
+    converge: "../playbooks/${CONVERGE_PLAYBOOK:-converge.yml}"
+    prepare: "../playbooks/${PREPARE_PLAYBOOK:-prepare.yml}"
+    verify: "../playbooks/${VERIFY_PLAYBOOK:-verify.yml}"

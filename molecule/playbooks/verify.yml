@@ -1,0 +1,38 @@
+# SPDX-FileCopyrightText: 2021 Maxwell G (@gotmax23)
+# SPDX-License-Identifier: MIT
+---
+- name: Verify
+  hosts: all
+  become: true
+
+  vars:
+    zoom_state: "{{ lookup('env', 'zoom_state') | default('present', True) }}"
+    _zoom_which_package:
+      Debian: debianutils
+      default: which
+    zoom_which_package: "{{ _zoom_which_package[ansible_os_family] | default(_zoom_which_package['default']) }}"
+
+  tasks:
+    - name: Ensure which is installed
+      ansible.builtin.package:
+        name: "{{ zoom_which_package }}"
+
+    - name: Check if Zoom is present
+      register: _zoom_presence
+      changed_when: false
+      failed_when: false
+      ansible.builtin.command:
+        cmd: which zoom
+
+    - name: Ensure Pass is installed
+      when: zoom_state == "present"
+      ansible.builtin.assert:
+        quiet: true
+        that: _zoom_presence.rc == 0
+
+
+    - name: Ensure Pass is uninstalled
+      when: zoom_state == "absent"
+      ansible.builtin.assert:
+        quiet: true
+        that: _zoom_presence.rc != 0

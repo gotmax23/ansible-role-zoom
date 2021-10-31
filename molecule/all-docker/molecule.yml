@@ -1,0 +1,171 @@
+---
+#
+# Ansible managed
+#
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+    requirements-file: requirements.yml
+    force: ${GALAXY_FORCE:-false}
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+driver:
+  name: docker
+
+platforms:
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-debian-buster"
+    image: "quay.io/gotmax23/debian-systemd:buster"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-debian-bullseye"
+    image: "quay.io/gotmax23/debian-systemd:bullseye"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-debian-bookworm"
+    image: "quay.io/gotmax23/debian-systemd:bookworm"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-el-8"
+    image: "quay.io/gotmax23/el-systemd:8"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-fedora-34"
+    image: "quay.io/gotmax23/fedora-systemd:34"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-fedora-35"
+    image: "quay.io/gotmax23/fedora-systemd:35"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-fedora-36"
+    image: "quay.io/gotmax23/fedora-systemd:36"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-opensuse-15.2"
+    image: "quay.io/gotmax23/opensuse-systemd:15.2"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-opensuse-15.3"
+    image: "quay.io/gotmax23/opensuse-systemd:15.3"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-opensuse-tumbleweed"
+    image: "quay.io/gotmax23/opensuse-systemd:tumbleweed"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-ubuntu-bionic"
+    image: "quay.io/gotmax23/ubuntu-systemd:bionic"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-ubuntu-focal"
+    image: "quay.io/gotmax23/ubuntu-systemd:focal"
+    command: ""
+    pre_build_image: true
+    tmpfs:
+      - /run
+      - /run/lock
+      - /tmp
+      - /sys/fs/cgroup/systemd
+      - /var/lib/journal
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      stdout_callback: yaml
+  playbooks:
+    converge: "../playbooks/${CONVERGE_PLAYBOOK:-converge.yml}"
+    prepare: "../playbooks/${PREPARE_PLAYBOOK:-prepare.yml}"
+    verify: "../playbooks/${VERIFY_PLAYBOOK:-verify.yml}"

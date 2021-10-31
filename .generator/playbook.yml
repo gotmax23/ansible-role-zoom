@@ -1,0 +1,17 @@
+# SPDX-FileCopyrightText: 2021 Maxwell G (@gotmax23)
+# SPDX-License-Identifier: CC0-1.0
+---
+- name: Install zoom
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Update apt cache
+      when: ansible_pkg_mgr == "apt"
+      ansible.builtin.apt:
+        update_cache: true
+        cache_valid_time: 3600
+
+    - name: Install zoom
+      ansible.builtin.include_role:
+        name: "gotmax23.zoom"

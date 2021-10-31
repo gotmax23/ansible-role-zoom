@@ -1,0 +1,18 @@
+# SPDX-FileCopyrightText: 2021 Maxwell G (@gotmax23)
+# SPDX-License-Identifier: MIT
+---
+_installw:
+  present: Install
+  absent: Uninstall
+installw: "{{ _installw[zoom_state] }}"
+
+zoom_deb_url: "https://zoom.us/client/latest/zoom_amd64.deb"
+
+zoom_rpm_key_url: "https://zoom.us/linux/download/pubkey"
+zoom_rpm_key_fingerprint: "3960 60CA DD8A 7522 0BFC B369 B903 BF18 61A7 C71D"
+
+_zoom_rpm_url:
+  default: ""
+  RedHat: https://zoom.us/client/latest/zoom_x86_64.rpm
+  Suse: https://zoom.us/client/latest/zoom_openSUSE_x86_64.rpm
+zoom_rpm_url: "{{ _zoom_rpm_url[ansible_os_family] | default(_zoom_rpm_url['default']) }}"

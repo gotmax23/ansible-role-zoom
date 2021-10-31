@@ -1,0 +1,32 @@
+---
+#
+# Ansible managed
+#
+dependency:
+  name: galaxy
+  options:
+    role-file: requirements.yml
+    requirements-file: requirements.yml
+    force: ${GALAXY_FORCE:-true}
+lint: |
+  set -e
+  yamllint .
+  ansible-lint
+driver:
+  name: podman
+
+platforms:
+  - name: "zoom-${MOLECULE_SCENARIO_NAME}-${image:-fedora}-${tag:-latest}${TOX_ENVNAME}"
+    image: "quay.io/gotmax23/${image:-fedora}-systemd:${tag:-latest}"
+    command: ""
+    pre_build_image: true
+    systemd: true
+provisioner:
+  name: ansible
+  config_options:
+    defaults:
+      stdout_callback: yaml
+  playbooks:
+    converge: "../playbooks/${CONVERGE_PLAYBOOK:-converge.yml}"
+    prepare: "../playbooks/${PREPARE_PLAYBOOK:-prepare.yml}"
+    verify: "../playbooks/${VERIFY_PLAYBOOK:-verify.yml}"

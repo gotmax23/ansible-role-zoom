@@ -1,0 +1,8 @@
+---
+#
+# Ansible managed
+#
+repository:
+  description: Ansible role that installs the Zoom client on Linux.
+  homepage: "https://galaxy.ansible.com/gotmax23/zoom"
+  topics: ansible, molecule, ansible-role, role

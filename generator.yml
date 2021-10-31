@@ -1,0 +1,30 @@
+#!/usr/bin/env ansible-playbook
+
+# SPDX-FileCopyrightText: 2021 Maxwell G (@gotmax23)
+# SPDX-License-Identifier: MIT
+---
+- name: Generate files
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars:
+    generator_molecule_wflow_test:
+      skip_test_step: true
+      steps:
+        - name: "Molecule test: zoom_state=present"
+          env:
+            zoom_state: present
+          run: molecule test -s single --destroy never
+        - name: "Molecule test: zoom_state=absent"
+          env:
+            zoom_state: absent
+          run: molecule test -s single --destroy never
+        - name: Molecule destroy
+          if: always()
+          run: molecule destroy -s single
+
+  roles:
+    - gotmax23.generator
+
+# vim: set filetype=yaml.ansible:
