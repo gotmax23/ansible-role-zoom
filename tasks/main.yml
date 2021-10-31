@@ -7,55 +7,16 @@
   connection: local
   become: false
 
-- name: Install ca-certificates
-  # It is not necessary to download anything when just removing the package.
-  when: zoom_state == "present"
-  ansible.builtin.package:
-    name: ca-certificates
-
-- name: Install Zoom (apt)
-  when:
-    - ansible_pkg_mgr == "apt"
-    - zoom_state == "present"
-  block:
-    # xz-utils is required to use the `apt` module's `deb` option.
-    - name: Install xz-utils (apt)
-      ansible.builtin.apt:
-        name: xz-utils
-
-    - name: Install Zoom (apt)
-      ansible.builtin.apt:
-        deb: "{{ zoom_deb_url }}"
-        state: "{{ zoom_state }}"
-
-- name: "{{ installw }} Zoom (rpm)"
+- name: "{{ installw }} Zoom rpm key"
   when: zoom_rpm_url | length > 0
-  block:
-    - name: "{{ installw }} Zoom rpm key"
-      ansible.builtin.rpm_key:
-        key: "{{ zoom_rpm_key_url }}"
-        fingerprint: "{{ zoom_rpm_key_fingerprint if zoom_check_rpm_key | bool else omit }}"
+  ansible.builtin.rpm_key:
+    key: "{{ zoom_rpm_key_url }}"
+    fingerprint: "{{ zoom_rpm_key_fingerprint if zoom_check_rpm_key | bool else omit }}"
+    state: "{{ zoom_state }}"
 
-    - name: Install Zoom (rpm)
-      when: zoom_state == "present"
-      ansible.builtin.package:
-        name: "{{ zoom_rpm_url }}"
-
-- name: Install Zoom (pacman)
-  when:
-    - ansible_pkg_mgr == "pacman"
-    - zoom_state == "present"
-
-  block:
-    - name: Download Zoom Pacman pkg
-      ansible.builtin.get_url:
-        url: "{{ zoom_pacman_pkg_url }}"
-        dest: "{{ zoom_pacman_pkg_download_dest }}"
-        mode: "0644"
-
-    - name: Install Zoom Pacman pkg
-      community.general.pacman:
-        name: "{{ zoom_pacman_pkg_download_dest }}"
+- name: Install Zoom
+  when: zoom_state == "present"
+  ansible.builtin.include_tasks: install.yml
 
 # I had to seperate this task, because it is impossible to remove a package by a url;
 # the actual package name is required.
