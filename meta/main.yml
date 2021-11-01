@@ -38,6 +38,12 @@ galaxy_info:
         - bionic
         - focal
 
-  galaxy_tags: []
+  galaxy_tags:
+    - zoom
+    - communication
+    - desktop
+    - linux
+    - video
+
 
 dependencies: []
