@@ -58,11 +58,11 @@ Here are this role's variables and their default values, as set in [`defaults/ma
 # - `absent` ensures that Zoom is not installed.
 zoom_state: present
 
-# Whether to check Zoom's rpm key fingerprint
+# This option dictats whether to check zoom's rpm key fingerprint
 zoom_check_rpm_key: true
 
 # This variable dictates where this role will download the Zoom pacman pkg archive.
-# This only applies on Archlinux machines.
+# This only applies to Archlinux.
 zoom_pacman_pkg_download_dir: /opt
 
 ```
