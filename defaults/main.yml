@@ -2,11 +2,11 @@
 # SPDX-License-Identifier: CC0-1.0
 ---
 # Options:
-# - `present` ensures that Zoom is installed
+# - `present` ensures that Zoom is installed.
 # - `absent` ensures that Zoom is not installed.
 zoom_state: present
 
-# This option dictats whether to check zoom's rpm key fingerprint
+# This option dictates whether to check zoom's rpm key fingerprint.
 zoom_check_rpm_key: true
 
 # This variable dictates where this role will download the Zoom pacman pkg archive.
