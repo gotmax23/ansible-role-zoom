@@ -4,5 +4,5 @@
 #
 repository:
   description: Ansible role that installs the Zoom client on Linux.
-  homepage: "https://galaxy.ansible.com/gotmax23/zoom"
+  homepage: https://galaxy.ansible.com/gotmax23/zoom
   topics: zoom, communication, desktop, linux, video, ansible, molecule, ansible-role, role
