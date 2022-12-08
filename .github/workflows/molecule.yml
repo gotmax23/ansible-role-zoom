@@ -1,7 +1,4 @@
 ---
-#
-# Ansible managed
-#
 name: Lint code and run Molecule tests
 
 'on':
@@ -23,7 +20,7 @@ defaults:
 
 jobs:
   lint:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Git Repo
         uses: actions/checkout@v2
@@ -33,7 +30,7 @@ jobs:
       - name: "Set up Python 3.9"
         uses: actions/setup-python@v2
         with:
-          python-version: "3.9"
+          python-version: "3.10"
 
       - name: Generate cache keys
         id: keys
@@ -61,7 +58,7 @@ jobs:
           GALAXY_FORCE: true
 
   test:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     needs:
       - lint
     strategy:
@@ -71,27 +68,13 @@ jobs:
           - image: "archlinux"
             tag: "any"
           - image: "debian"
-            tag: "buster"
-          - image: "debian"
-            tag: "bullseye"
-          - image: "debian"
             tag: "bookworm"
-          - image: "el"
-            tag: "7"
           - image: "el"
             tag: "8"
           - image: "fedora"
-            tag: "34"
-          - image: "fedora"
-            tag: "35"
-          - image: "fedora"
-            tag: "36"
+            tag: "37"
           - image: "opensuse"
             tag: "15.3"
-          - image: "opensuse"
-            tag: "tumbleweed"
-          - image: "ubuntu"
-            tag: "bionic"
           - image: "ubuntu"
             tag: "focal"
     env:
@@ -110,7 +93,7 @@ jobs:
       - name: "Set up Python 3.9"
         uses: actions/setup-python@v2
         with:
-          python-version: "3.9"
+          python-version: "3.10"
 
       - name: Generate cache keys
         id: keys

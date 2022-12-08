@@ -1,11 +1,10 @@
 ---
-#
-# Ansible managed
-#
 exclude_paths:
   - .cache/
   - .github/
   - meta/
   - molecule/
+ignore_list:
+  - name[template]
 
 # vim: set filetype=yaml:
