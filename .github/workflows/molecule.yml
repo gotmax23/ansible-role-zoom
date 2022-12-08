@@ -6,6 +6,8 @@ name: Lint code and run Molecule tests
     paths-ignore:
       - README.md
       - .github/settings.yml
+    branches:
+      - main
   pull_request:
     paths-ignore:
       - README.md

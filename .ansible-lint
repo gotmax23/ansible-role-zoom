@@ -4,7 +4,7 @@ exclude_paths:
   - .github/
   - meta/
   - molecule/
-ignore_list:
+skip_list:
   - name[template]
 
 # vim: set filetype=yaml:
