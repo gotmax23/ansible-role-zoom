@@ -1,20 +1,27 @@
 # SPDX-FileCopyrightText: 2021 Maxwell G (@gotmax23)
 # SPDX-License-Identifier: MIT
 ---
+- name: Check if Zoom is installed.
+  ansible.builtin.stat:
+    path: /usr/bin/zoom
+  register: is_zoom_installed
+  
 - name: Install ca-certificates
   # This is not included in tasks/main.yml, because it is not necessary to
   # download anything when just removing the package.
   ansible.builtin.package:
     name: ca-certificates
+  when: is_zoom_installed.stat.exists == false
 
 - name: Install Zoom (apt)
-  when: ansible_pkg_mgr == "apt"
+  when: ansible_pkg_mgr == "apt" && is_zoom_installed.stat.exists == false
   block:
     # xz-utils is required to use the `apt` module's `deb` option.
     - name: Install xz-utils (apt)
       ansible.builtin.apt:
         name: xz-utils
-
+      
+     
     - name: Install Zoom (apt)
       ansible.builtin.apt:
         deb: "{{ zoom_deb_url }}"
@@ -24,9 +31,10 @@
   when: zoom_rpm_url | length > 0
   ansible.builtin.package:
     name: "{{ zoom_rpm_url }}"
-
+  when: is_zoom_installed.stat.exists == false
+  
 - name: Install Zoom (pacman)
-  when: ansible_pkg_mgr == "pacman"
+  when: ansible_pkg_mgr == "pacman" && is_zoom_installed.stat.exists == false
   block:
     - name: Download Zoom Pacman pkg
       ansible.builtin.get_url:
