@@ -14,7 +14,7 @@
   when: is_zoom_installed.stat.exists == false
 
 - name: Install Zoom (apt)
-  when: ansible_pkg_mgr == "apt" && is_zoom_installed.stat.exists == false
+  when: ansible_pkg_mgr == "apt" and is_zoom_installed.stat.exists == false
   block:
     # xz-utils is required to use the `apt` module's `deb` option.
     - name: Install xz-utils (apt)
@@ -34,7 +34,7 @@
   when: is_zoom_installed.stat.exists == false
   
 - name: Install Zoom (pacman)
-  when: ansible_pkg_mgr == "pacman" && is_zoom_installed.stat.exists == false
+  when: ansible_pkg_mgr == "pacman" and is_zoom_installed.stat.exists == false
   block:
     - name: Download Zoom Pacman pkg
       ansible.builtin.get_url:
